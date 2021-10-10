@@ -40,8 +40,12 @@ defmodule PentoWeb.WrongLive do
         <%= if @correct do%>
         <a href="#" phx-click="reset">Reload Game</a>
         <% end %>
-
         </h2>
+        <pre>
+        <%= @user.email %>
+        <%= @session_id %>
+        </pre>
+
         """
     end
 
