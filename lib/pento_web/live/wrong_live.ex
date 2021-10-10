@@ -91,13 +91,8 @@ defmodule PentoWeb.WrongLive do
     end
 
 
-    @doc """
-    Handle event 
-    
-    Handles the phx-click="guess" event
-
-    phx-value-number is pattern matched on the second argument to get the data
-
+    @doc """    
+    Handles the phx-click="reset" event
 
     """
     def handle_event("reset", _params, socket) do
