@@ -6,7 +6,7 @@ defmodule PentoWeb.WrongLive do
     @doc """
     Responsible for setting the initial state(score and message)
     """
-    def mount(_params, _session, socket) do
+    def mount(_params, session, socket) do
         random = Enum.random(1..10)
         {
             :ok,
@@ -15,16 +15,16 @@ defmodule PentoWeb.WrongLive do
                 random: random,
                 score: 0,
                 correct: false,
-                message: "Guess a number"
+                message: "Guess a number",
+                user: Pento.Accounts.get_user_by_session_token(session["user_token"]),
+                session_id: session["live_socket_id"]
             )
         }
     end
 
 
     @doc """
-    
     LiveView will render all the static markup once .
-
     """
     def render(assigns) do
         ~L"""
@@ -52,12 +52,8 @@ defmodule PentoWeb.WrongLive do
 
     @doc """
     Handle event 
-    
     Handles the phx-click="guess" event
-
     phx-value-number is pattern matched on the second argument to get the data
-
-
     """
     def handle_event("guess", %{"number" => guess}=data, socket) do
         IO.inspect data
