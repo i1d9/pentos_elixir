@@ -54,11 +54,10 @@ defmodule PentoWeb.WrongLive do
     end
 
 
-    @doc """
-    Handle event 
-    Handles the phx-click="guess" event
-    phx-value-number is pattern matched on the second argument to get the data
-    """
+    #Handle event 
+    #Handles the phx-click="guess" event
+    #phx-value-number is pattern matched on the second argument to get the data
+
     def handle_event("guess", %{"number" => guess}=data, socket) do
         IO.inspect data
         message = "Your guess: #{guess}. Wrong. Guess again. "
@@ -91,10 +90,8 @@ defmodule PentoWeb.WrongLive do
     end
 
 
-    @doc """    
-    Handles the phx-click="reset" event
+    #Handles the phx-click="reset" event
 
-    """
     def handle_event("reset", _params, socket) do
         random = Enum.random(1..10)
         {
