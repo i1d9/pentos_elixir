@@ -4,6 +4,18 @@ defmodule PentoWeb.ProductLive.Index do
   alias Pento.Catalog
   alias Pento.Catalog.Product
 
+
+  @moduledoc """
+  A liveview is initailly a normal GET request then a websocket connection is instanciated.
+  Once the socket has been instaniated the handle_params/3 is called to process any paramters 
+  that may have been passed on the URL.
+  The handle_params method can be discarded if no paramter processing is required
+  The next function to be executed is the mount/3 which is used to initalize the state using the assigns/3 function
+  The states can be accessed in the templates and are used to trigger re-rendering of specific parts of the template
+  The next function to be executed is the render function if it is not defined the live view module will look for a
+  template with the same name as the callling liveview module which follows phoenix naming convenction 
+  """
+
   @impl true
   def mount(_params, _session, socket) do
     {:ok, 
@@ -15,6 +27,9 @@ defmodule PentoWeb.ProductLive.Index do
   end
 
   @impl true
+  @doc """
+  Called after the initial get method
+  """
   def handle_params(params, _url, socket) do
     {:noreply, apply_action(socket, socket.assigns.live_action, params)}
   end
