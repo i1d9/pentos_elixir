@@ -4,11 +4,18 @@ defmodule PentoWeb.ProductLive.Show do
   alias Pento.Catalog
 
   @impl true
+  @doc """
+  Sets the initalial state
+  """
   def mount(_params, _session, socket) do
     {:ok, socket}
   end
 
   @impl true
+  @doc """
+  Patterns match the params and extracts the id from the URL 
+  Takes the same params as the mount function and a trigger
+  """
   def handle_params(%{"id" => id}, _, socket) do
     {:noreply,
      socket

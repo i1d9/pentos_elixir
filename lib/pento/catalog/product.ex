@@ -11,7 +11,18 @@ defmodule Pento.Catalog.Product do
     timestamps()
   end
 
-  @doc false
+  @doc """
+  Changeset casts unstructed user data into a known, structured form ensuring data safety
+  Changesets capture differences between safe,consistent data and a proposed change, allowing efficiency
+  Changesets validate data using known consistent rules, ensuring data consistency
+  Changesets provide a contract for communicating error states and valid states ensuring a common interface for change
+    
+  The changeset/2 function captures differences between the structured item struct and the unstructructed attrs
+
+  The cast/4 trims the changeset to the known attributes and converts them to the correct types ensuring safety
+    
+  The validate/2 and unique_constraint/2 functions validate the inbound data ensuring consistency
+  """
   def changeset(product, attrs) do
     product
     |> cast(attrs, [:name, :description, :unit_price, :sku])

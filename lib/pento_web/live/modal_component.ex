@@ -2,6 +2,10 @@ defmodule PentoWeb.ModalComponent do
   use PentoWeb, :live_component
 
   @impl true
+  @doc """
+  phx-capture-click handles client mouse events
+  phx-window-keydown and phx-key handles client keyboard events
+  """
   def render(assigns) do
     ~H"""
     <div
