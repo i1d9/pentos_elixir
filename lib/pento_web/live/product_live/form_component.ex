@@ -1,3 +1,4 @@
+
 defmodule PentoWeb.ProductLive.FormComponent do
   use PentoWeb, :live_component
 
@@ -11,7 +12,7 @@ defmodule PentoWeb.ProductLive.FormComponent do
      socket
      |> assign(assigns)
      |> assign(:changeset, changeset)
-     |> allow_upload(:image, 
+     |> allow_upload(:image,
         accept: ~w(.jpg .jpeg .png),
         max_entries: 1,
         auto_upload: true,
@@ -24,7 +25,7 @@ defmodule PentoWeb.ProductLive.FormComponent do
   Sends a progress event for each bit sent
 
   The first argument is the name of the upload field
-  The second argument is the file being uploaded 
+  The second argument is the file being uploaded
   The third argument is the socket connection
 
   If the upload is done consume_uploaded_entry/3 is invoked
