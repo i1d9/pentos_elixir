@@ -32,5 +32,11 @@
     <div>
       <%= submit "Save", phx_disable_with: "Saving..." %>
     </div>
+
+    <%= for entry <- @uploads.image.entries do %>
+<p>
+<%= entry.client_name %> - <%= entry.progress %>%
+</p>
+<% end %>
   </.form>
 </div>
