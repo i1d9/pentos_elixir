@@ -102,11 +102,10 @@ defmodule Pento.Catalog do
     Product.changeset(product, attrs)
   end
 
-
-  def markdown_product(%Product{} = product, amount) do
-    product
-    |> Map.replace(:unit_price, product.unit_price - amount) 
-    |> Product.markdown_changeset(product.unit_price)
-    |> Repo.update()
+  def list_products_with_user_ratings(user) do
+    Product.Query.with_user_ratings(user)
+    |> Repo.all()
   end
+
+  
 end
