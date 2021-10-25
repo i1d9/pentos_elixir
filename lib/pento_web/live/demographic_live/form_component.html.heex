@@ -1,5 +1,18 @@
 <div class="hero">
 
+<%= if @demographic do %>
+<h3>Demographics</h3>
+<ul>
+<li>Year of birth: <%= @demographic.year_of_birth %></li>
+<li>Gender: <%= @demographic.gender %></li>
+</ul>
+<% else %>
+<%= live_component @socket,
+PentoWeb.DemographicLive.FormComponent,
+user: @current_user,
+id: "demographic-form-#{@current_user.id}"%>
+<% end %>
+
   <.form
     let={f}
     for={@changeset}

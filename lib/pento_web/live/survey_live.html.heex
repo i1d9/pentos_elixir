@@ -3,9 +3,14 @@
 
 </section>
 
-<section class="row">
-<%= 
-    live_component @socket, PentoWeb.DemographicLive.FormComponent, user: @current_user
 
-%>
+
+
+<section class="row">
+<%= if @demographic do %> 
+ <%= live_component @socket, PentoWeb.DemographicLive.ShowComponent, demographic: @demographic %>
+ <%= live_component @socket, PentoWeb.RatingLive.IndexComponent, products: @products, current_user: @current_user%> 
+<% else %> 
+ <%= live_component @socket, PentoWeb.DemographicLive.FormComponent, user: @current_user, id: "demographic-form-#{@current_user.id}"%>
+<% end %> 
 </section>
