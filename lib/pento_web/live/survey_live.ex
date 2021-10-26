@@ -24,12 +24,8 @@ defmodule PentoWeb.SurveyLive do
   When the live view first mounts in the disconnected state, the Plug.Conn assigns is available inside the live view's socket under socket.private.assign_new.
   This allows the connection assigns to be shared for the initial HTTP request. The Plug.Conn assigns is not available in the connected state.
   """
-  defp assign_user(socket, token) do
-    IO.puts "Assign User with socket.private:"
-    IO.inspect socket.private
-    assign_new(socket, :current_user, fn ->
-      Accounts.get_user_by_session_token(token)
-    end)
+  def assign_user(socket, token) do
+    assign_new(socket, :current_user, fn -> Accounts.get_user_by_session_token(token) end)
   end
 
   def assign_demographic(%{assigns: %{current_user: current_user}} = socket) do
@@ -45,6 +41,7 @@ defmodule PentoWeb.SurveyLive do
     Catalog.list_products_with_user_ratings(user)
   end
 
+  @impl true
   @doc """
   Recieves a message from the form_component and matches the tuple sent by it
   """
@@ -52,6 +49,7 @@ defmodule PentoWeb.SurveyLive do
     {:noreply, handle_demographic_created(socket, demographic)}
   end
 
+  @impl true
   def handle_info({:created_rating, updated_product, product_index}, socket) do
     {:noreply, handle_rating_created(socket, updated_product, product_index)}
   end
@@ -65,10 +63,17 @@ defmodule PentoWeb.SurveyLive do
   @doc """
   Adds the flash message and updates the product list with its rating
   """
-  def handle_rating_created(%{assigns: %{products: products}}= socket,updated_product,product_index) do
+  def handle_rating_created(
+         %{assigns: %{products: products}} = socket,
+         updated_product,
+         product_index
+       ) do
     socket
     |> put_flash(:info, "Rating submitted successfully")
-    |> assign(:products, List.replace_at(products, product_index, updated_product) )
+    |> assign(
+      :products,
+      List.replace_at(products, product_index, updated_product)
+    )
   end
 
 end
