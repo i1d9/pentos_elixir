@@ -84,6 +84,7 @@ defmodule PentoWeb.Router do
   scope "/", PentoWeb do
     pipe_through [:browser, :require_authenticated_user]
 
+    live "/admin-dashboard", AdminDashboardLive, :index
     live "/guess", WrongLive
     live "/survey", SurveyLive, :index
 
