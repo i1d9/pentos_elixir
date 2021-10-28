@@ -26,6 +26,11 @@ defmodule Pento.Catalog.Product.Query do
     |> average_ratings
   end
 
+  def with_zero_ratings(query \\ base()) do
+    query
+    |> select([p], {p.name, 0})
+  end
+
   defp join_ratings(query) do
     query
     |> join(:inner, [p], r in Rating, on: r.product_id == p.id)

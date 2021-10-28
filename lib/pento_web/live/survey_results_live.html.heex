@@ -5,3 +5,33 @@
         <%= @chart_svg %>
     </div>
 </section>
+
+
+  <div class="float-container survey-results-filters">
+    <div class="float-child">
+    <.form phx-change="gender_filter" phx-target={@myself} >
+      <label>Filter by gender:</label>
+      <select name="gender_filter" id="gender_filter">
+        <%= for gender <- ["all", "female", "male", "other", "prefer not to say"] do %>
+          <option>
+          </option>
+        <% end %>
+      </select>
+    </.form>
+    </div>
+    <div class="float-child">
+      <.form phx-change="age_group_filter" phx-target={@myself%} >
+        <label>Filter by age group: </label>
+        <select name="age_group_filter" id="age_group_filter">
+          <%= for age_group <- ["all", "18 and under", "18 to 25", "25 to 35", "35 and up"] do %>
+            <option>
+                <%= age_group %>
+            </option>
+          <% end %>
+        </select>
+      </.form>
+    </div>
+  </div>
+  <div id="survey-results-chart">
+    <%= @chart_svg %>
+  </div>
