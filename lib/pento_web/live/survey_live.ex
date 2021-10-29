@@ -1,6 +1,9 @@
 defmodule PentoWeb.SurveyLive do
   use PentoWeb, :live_view
+  alias PentoWeb.Endpoint
   alias Pento.{Catalog, Accounts, Survey}
+
+  @survey_results_topic "survey_results"
 
   @impl true
   @doc """
@@ -61,19 +64,14 @@ defmodule PentoWeb.SurveyLive do
   end
 
   @doc """
-  Adds the flash message and updates the product list with its rating
+  Adds the flash message and updates the product list with its rating.
+  Broadcasts an event to the admin
   """
-  def handle_rating_created(
-         %{assigns: %{products: products}} = socket,
-         updated_product,
-         product_index
-       ) do
+  def handle_rating_created(%{assigns: %{products: products}} = socket, updated_product, product_index) do
+    Endpoint.broadcast!(@survey_results_topic, "rating_created", %{})
+
     socket
     |> put_flash(:info, "Rating submitted successfully")
-    |> assign(
-      :products,
-      List.replace_at(products, product_index, updated_product)
-    )
+    |> assign(:products, List.replace_at(products, product_index, updated_product))
   end
-
 end
