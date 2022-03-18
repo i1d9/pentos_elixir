@@ -14,6 +14,7 @@
       <select name="gender_filter" id="gender_filter">
         <%= for gender <- ["all", "female", "male", "other", "prefer not to say"] do %>
           <option>
+              <%= gender %>
           </option>
         <% end %>
       </select>
